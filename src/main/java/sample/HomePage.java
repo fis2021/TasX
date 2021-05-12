@@ -46,6 +46,19 @@ class HomePage extends Application {
         oversTask.setText("Neatribuite");
         oversTask.setLayoutX(170);
         oversTask.setLayoutY(250);
+
+        addTask.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+
+                AddTask AddT = new AddTask();
+                AddT.show();
+                stage.hide();
+
+            }
+        });
+
         myTask.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -63,6 +76,9 @@ class HomePage extends Application {
             @Override
             public void handle(ActionEvent event) {
 
+                Neatribuite OTask = new Neatribuite();
+                OTask.show();
+                stage.hide();
 
             }
         });
