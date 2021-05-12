@@ -42,24 +42,47 @@ class MyTask extends Application {
         MongoCollection<Document> collection = database.getCollection("tasks");
         MongoCursor<Document> cursor = collection.find().iterator();
 
+//        StringBuilder txt = new StringBuilder();
+//
+//        for (Document cur : collection.find()) {
+//            txt.append(cur.toJson());
+//        }
 
+        String txt = "";
+        String txt2 = "";
+        String linie = "";
+        String name = "";
+        int index;
+        int index_name;
+        int index_name_2;
         Text text = new Text();
+        Text tasks = new Text();
         try {
             while (cursor.hasNext()) {
-               // JSONObject obj = cursor.next().toJson();
+                txt2 = cursor.next().toJson();
+                index_name = txt2.lastIndexOf(':');
+                index_name_2 = txt2.lastIndexOf('"');
+                name = txt2.substring(index_name + 3, index_name_2);
 
-                text.setText(cursor.next().toJson());
+                if (name.equals(Main.mail)) {
+                    index = txt2.lastIndexOf(',');
+                    txt += txt2.substring(54, index) + "\n";
+                }
             }
         } finally {
             cursor.close();
         }
 
+        tasks.setText(txt.toString());
+        tasks.setFont(new Font(20));
+        tasks.setX(50);
+        tasks.setY(150);
         text.setFont(new Font(20));
         text.setX(50);
-        text.setY(150);
+        text.setY(130);
         text.setText("Task-urile mele!");
-        Group root = new Group(text, back);
-        stage.setScene(new Scene(root, 300, 500));
+        Group root = new Group(text, tasks, back);
+        stage.setScene(new Scene(root, 600, 500));
         stage.show();
 
         back.setOnAction(new EventHandler<ActionEvent>() {
