@@ -42,15 +42,8 @@ class Neatribuite extends Application {
         MongoCollection<Document> collection = database.getCollection("tasks");
         MongoCursor<Document> cursor = collection.find().iterator();
 
-//        StringBuilder txt = new StringBuilder();
-//
-//        for (Document cur : collection.find()) {
-//            txt.append(cur.toJson());
-//        }
-
         String txt = "";
         String txt2 = "";
-        String linie = "";
         String name = "";
         int index;
         int index_name;
@@ -64,7 +57,7 @@ class Neatribuite extends Application {
                 index_name_2 = txt2.lastIndexOf('"');
                 name = txt2.substring(index_name + 3, index_name_2);
 
-                if (name.equals("")) {
+                if (haveMail(name)) {
                     index = txt2.lastIndexOf(',');
                     txt += txt2.substring(54, index) + "\n";
                 }
@@ -94,5 +87,9 @@ class Neatribuite extends Application {
                 hp.show();
             }
         });
+    }
+
+    public boolean haveMail(String mail) {
+        return mail.equals("");
     }
 }
